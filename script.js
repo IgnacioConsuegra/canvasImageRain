@@ -10,6 +10,7 @@ myImage.addEventListener('load', () => {
   canvas.height = 706;
   ctx.drawImage(myImage, 0, 0, canvas.width, canvas.height);
   const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   console.log(pixels)
   let particlesArray = [];
   const numberOfParticles = 5000;
@@ -77,8 +78,10 @@ myImage.addEventListener('load', () => {
     ctx.globalAlpha = 0.05;
     ctx.fillStyle = 'rgb(0, 0, 0)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.globalAlpha = 0.2;
     for (let i = 0; i < particlesArray.length; i++) { 
       particlesArray[i].update();
+      ctx.globalAlpha = particlesArray[i].speed * 0.5;
       particlesArray[i].draw();
     }
     requestAnimationFrame(animate);
